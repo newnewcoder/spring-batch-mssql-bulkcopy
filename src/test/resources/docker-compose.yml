@@ -1,0 +1,10 @@
+version: '2'
+services:
+  sqlserver:
+    image: microsoft/mssql-server-linux:ctp1-4
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: \!Passw0rd
