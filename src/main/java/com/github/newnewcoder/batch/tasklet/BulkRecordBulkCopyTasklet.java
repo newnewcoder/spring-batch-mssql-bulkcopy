@@ -11,13 +11,12 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import com.github.newnewcoder.batch.exception.MssqlBulkCopyBatchException;
 import com.github.newnewcoder.batch.util.MssqlJdbcUtil;
 import com.microsoft.sqlserver.jdbc.ISQLServerBulkRecord;
 import com.microsoft.sqlserver.jdbc.SQLServerBulkCopy;
 import com.microsoft.sqlserver.jdbc.SQLServerBulkCopyOptions;
 
-public class DefaultMssqlBulkCopyTasklet implements Tasklet, InitializingBean {
+public class BulkRecordBulkCopyTasklet implements Tasklet, InitializingBean {
 
     private DataSource dataSource;
 
@@ -46,19 +45,12 @@ public class DefaultMssqlBulkCopyTasklet implements Tasklet, InitializingBean {
              SQLServerBulkCopy bulkCopy = new SQLServerBulkCopy(connection)) {
             bulkCopy.setBulkCopyOptions(copyOptions);
             bulkCopy.setDestinationTableName(destinationTableName);
-            //connection.setAutoCommit(false);
-            try {
-                if (!CollectionUtils.isEmpty(columnMapping)) {
-                    for (Map.Entry<String, String> entry : columnMapping.entrySet()) {
-                        bulkCopy.addColumnMapping(entry.getKey(), entry.getValue());
-                    }
+            if (!CollectionUtils.isEmpty(columnMapping)) {
+                for (Map.Entry<String, String> entry : columnMapping.entrySet()) {
+                    bulkCopy.addColumnMapping(entry.getKey(), entry.getValue());
                 }
-                bulkCopy.writeToServer(record);
-                //connection.commit();
-            } catch (Exception e) {
-                //connection.rollback();
-                throw new MssqlBulkCopyBatchException("Error occurred while bulk copy.", e);
             }
+            bulkCopy.writeToServer(record);
         }
         return RepeatStatus.FINISHED;
     }

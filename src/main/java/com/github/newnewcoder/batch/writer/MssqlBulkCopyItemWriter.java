@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
-import com.github.newnewcoder.batch.exception.MssqlBulkCopyBatchException;
 import com.github.newnewcoder.batch.jdbc.DefaultSQLServerListBulkRecordFactory;
 import com.github.newnewcoder.batch.jdbc.SQLServerBulkRecordFactory;
 import com.github.newnewcoder.batch.util.MssqlJdbcUtil;
@@ -50,14 +49,7 @@ public class MssqlBulkCopyItemWriter implements ItemWriter<ItemEntity>, Initiali
                 final String columnName = record.getColumnName(idx);
                 bulkCopy.addColumnMapping(columnName, columnName);
             }
-            //connection.setAutoCommit(false);
-            try {
-                bulkCopy.writeToServer(record);
-                //connection.commit();
-            } catch (Exception e) {
-                //connection.rollback();
-                throw new MssqlBulkCopyBatchException("Error occurred while bulk copy.", e);
-            }
+            bulkCopy.writeToServer(record);
         }
     }
 

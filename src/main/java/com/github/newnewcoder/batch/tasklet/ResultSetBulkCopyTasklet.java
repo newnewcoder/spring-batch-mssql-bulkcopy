@@ -13,12 +13,11 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import com.github.newnewcoder.batch.exception.MssqlBulkCopyBatchException;
 import com.github.newnewcoder.batch.util.MssqlJdbcUtil;
 import com.microsoft.sqlserver.jdbc.SQLServerBulkCopy;
 import com.microsoft.sqlserver.jdbc.SQLServerBulkCopyOptions;
 
-public class MssqlSqlBulkCopyTasklet implements Tasklet, InitializingBean {
+public class ResultSetBulkCopyTasklet implements Tasklet, InitializingBean {
 
     private DataSource sourceDataSource;
 

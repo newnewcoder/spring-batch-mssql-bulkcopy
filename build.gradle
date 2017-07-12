@@ -15,6 +15,17 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'findbugs'
+
+findbugs {
+    ignoreFailures = true
+}
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
 
 sourceCompatibility = 1.8
 
@@ -30,13 +41,6 @@ ext {
     springBatchVersion = '3.0.7.RELEASE'
     log4jVersion = '2.8.2'
     slf4jVersion = '1.7.25'
-}
-
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
 }
 
 task sourceJar(type: Jar, dependsOn: classes, description: 'Package source into jar') {

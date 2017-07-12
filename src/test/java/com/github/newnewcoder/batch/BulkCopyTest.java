@@ -8,12 +8,11 @@ import java.util.Map;
 import javax.sql.DataSource;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.jdbc.core.JdbcTemplate;
-import com.github.newnewcoder.batch.tasklet.DefaultMssqlBulkCopyTasklet;
-import com.github.newnewcoder.batch.tasklet.MssqlSqlBulkCopyTasklet;
+import com.github.newnewcoder.batch.tasklet.BulkRecordBulkCopyTasklet;
+import com.github.newnewcoder.batch.tasklet.ResultSetBulkCopyTasklet;
 import com.github.newnewcoder.batch.writer.MssqlBulkCopyItemWriter;
 import com.microsoft.sqlserver.jdbc.SQLServerBulkCSVFileRecord;
 
@@ -22,11 +21,11 @@ public class BulkCopyTest extends AbstractTest {
 
     //@Ignore
     @Test
-    public void MssqlFileBulkCopyTaskletTest() throws Exception {
+    public void mssqlFileBulkCopyTaskletTest() throws Exception {
         DataSource dataSource = getDataSource();
         Integer countBeforeExecute = count(new JdbcTemplate(dataSource), "TEST_TARGET_TABLE");
         logger.debug("countBeforeExecute: {}", countBeforeExecute);
-        DefaultMssqlBulkCopyTasklet tasklet = new DefaultMssqlBulkCopyTasklet();
+        BulkRecordBulkCopyTasklet tasklet = new BulkRecordBulkCopyTasklet();
         tasklet.setDataSource(dataSource);
         tasklet.setDestinationTableName("TEST_TARGET_TABLE");
         SQLServerBulkCSVFileRecord record = new SQLServerBulkCSVFileRecord("src/test/resources/test_data.D", "utf8", "\\|", false);
@@ -45,11 +44,11 @@ public class BulkCopyTest extends AbstractTest {
 
     //@Ignore
     @Test
-    public void MssqlSqlBulkCopyTaskletTest() throws Exception {
+    public void mssqlSqlBulkCopyTaskletTest() throws Exception {
         DataSource dataSource = getDataSource();
         Integer countBeforeExecute = count(new JdbcTemplate(dataSource), "TEST_TARGET_TABLE");
         logger.debug("countBeforeExecute: {}", countBeforeExecute);
-        MssqlSqlBulkCopyTasklet tasklet = new MssqlSqlBulkCopyTasklet();
+        ResultSetBulkCopyTasklet tasklet = new ResultSetBulkCopyTasklet();
         tasklet.setSourceDataSource(dataSource);
         tasklet.setSql("SELECT * FROM TEST_SOURCE_TABLE");
         tasklet.setTargetDataSource(dataSource);
@@ -70,7 +69,7 @@ public class BulkCopyTest extends AbstractTest {
 
     //@Ignore
     @Test
-    public void MssqlBulkCopyItemWriterTest() throws Exception {
+    public void mssqlBulkCopyItemWriterTest() throws Exception {
         DataSource dataSource = getDataSource();
         Integer countBeforeExecute = count(new JdbcTemplate(dataSource), "TEST_TARGET_TABLE");
         logger.debug("countBeforeExecute: {}", countBeforeExecute);
