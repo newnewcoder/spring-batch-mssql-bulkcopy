@@ -1,1 +1,1 @@
-A small library wrapping mssql-jdbc `bulk copy` for spring-batch
+This lib provides spring-batch **tasklet** and **writer** for MSSQL **bulk copy**.
