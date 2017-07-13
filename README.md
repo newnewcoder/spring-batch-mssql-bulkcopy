@@ -2,7 +2,7 @@
 [![download](https://api.bintray.com/packages/newnewcoder/generic/spring-batch-mssql-bulkcopy/images/download.svg) ](https://bintray.com/newnewcoder/generic/spring-batch-mssql-bulkcopy/_latestVersion)
 
 ### What's this
-This lib provides spring-batch **tasklet** and **writer** for MSSQL **bulk copy**.
+This lib provides spring-batch **tasklet** and **writer** for MSSQL [**bulk copy**](https://docs.microsoft.com/en-us/sql/connect/jdbc/using-bulk-copy-with-the-jdbc-driver).
 
 ### How to use
 
