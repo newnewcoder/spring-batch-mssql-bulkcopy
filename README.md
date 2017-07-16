@@ -17,7 +17,7 @@ dependencies {
 }
 ~~~
 
-**Tasklet** or **writter** usage see [test case](https://github.com/newnewcoder/spring-batch-mssql-bulkcopy/blob/master/src/test/java/com/github/newnewcoder/batch/BulkCopyTest.java)
+**Tasklet** or **writer** usage see [test case](https://github.com/newnewcoder/spring-batch-mssql-bulkcopy/blob/master/src/test/java/com/github/newnewcoder/batch/BulkCopyTest.java)
 
 ### How to build project locally
 
